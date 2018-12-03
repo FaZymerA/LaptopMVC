@@ -1,0 +1,104 @@
+﻿@model  LaptopMVC.Models.InfoViewModel
+@{
+    ViewBag.Title = "InfoProduct";
+}
+
+<h2>InfoProduct</h2>
+<table class="table table-striped">
+    <tr>
+        <td></td>
+        <td>Име</td>
+        <td>Тип на продукта</td>
+        <td>Тип на системата</td>
+    </tr>
+    @foreach (var item in Model.ListProducts)
+    {
+    <tr id="row_@item.Id">
+        <td><img src="@Url.Content("~/Content/Images/"+item.Image)" style="width:50px; height:50px" /></td>
+        <td>@item.Name</td>
+        <td>@item.ProductType</td>
+        <td>@item.SystemType</td>
+    </tr>
+    }
+</table>
+<table class="table table-striped">
+    <tr>
+        <td></td>
+        <td>Име</td>
+        <td>GHz</td>
+        <td>Ядра</td>
+    </tr>
+    @foreach (var item in Model.ListProcessor)
+    {
+        <tr>
+            <td><img src="@Url.Content("~/Content/Images/"+item.Image)" style="width:50px; height:50px" /></td>
+            <td>@item.Name</td>
+            <td>@item.PoworGHz</td>
+            <td>@item.Core</td>
+        </tr>
+
+    }
+</table>
+<table class="table">
+    <tr>
+        <td></td>
+        <td>
+           Име
+        </td>
+        <td>
+            Мах.раздилителна способност
+        </td>
+        <td>
+            Мах.VGA способсот
+        </td>
+        <td>
+            Памет в бит(сек)
+        </td>
+        <td>
+           Памет в GB(сек)
+        </td>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.ListVideoCard)
+    {
+        <tr>
+            <td><img src="@Url.Content("~/Content/Images/"+item.Image)" style="width:50px; height:50px" /></td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxDigitalResolution)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxVGAResolution)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemoryBit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemoryGBsec)
+            </td>
+        </tr>
+    }
+
+</table>
+<table class="table table-striped">
+    <tr>
+        <td></td>
+        <td>Име</td>
+        <td>Сокет</td>
+        <td>Поддържа процесор</td>
+        <td>Поддържа RAM памет</td>
+    </tr>
+    @foreach (var item in Model.ListMotherboard)
+    {
+        <tr>
+            <td><img src="@Url.Content("~/Content/Images/"+item.Image)" style="width:50px; height:50px" /></td>
+            <td>@item.Name</td>
+            <td>@item.Socket</td>
+            <td>@item.ProcessorSupp</td>
+            <td>@item.RAMMemorySupp</td>
+        </tr>
+    }
+</table>

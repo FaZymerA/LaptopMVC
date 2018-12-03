@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ASPNETMVCLaptopModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="Cart">
+      <EntityTypeMapping TypeName="ASP.NETMVCLaptopModel.Cart">
+        <MappingFragment StoreEntitySet="Cart">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="PC_ID" ColumnName="PC_ID" />
+          <ScalarProperty Name="VideoCard_ID" ColumnName="VideoCard_ID" />
+          <ScalarProperty Name="Processor_ID" ColumnName="Processor_ID" />
+          <ScalarProperty Name="Motherboard_ID" ColumnName="Motherboard_ID" />
+          <ScalarProperty Name="Orders" ColumnName="Orders" />
+          <ScalarProperty Name="AcceptedOrder" ColumnName="AcceptedOrder" />
+          <ScalarProperty Name="PC_Orders_Count" ColumnName="PC_Orders_Count" />
+          <ScalarProperty Name="VideoCard_Order_Count" ColumnName="VideoCard_Order_Count" />
+          <ScalarProperty Name="Processor_Order_Cout" ColumnName="Processor_Order_Cout" />
+          <ScalarProperty Name="Motherboard_Order_Count" ColumnName="Motherboard_Order_Count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Motherboard">
+      <EntityTypeMapping TypeName="ASP.NETMVCLaptopModel.Motherboard">
+        <MappingFragment StoreEntitySet="Motherboard">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Socket" ColumnName="Socket" />
+          <ScalarProperty Name="ProcessorSupp" ColumnName="ProcessorSupp" />
+          <ScalarProperty Name="RAMMemorySupp" ColumnName="RAMMemorySupp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Processor">
+      <EntityTypeMapping TypeName="ASP.NETMVCLaptopModel.Processor">
+        <MappingFragment StoreEntitySet="Processor">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PoworGHz" ColumnName="PoworGHz" />
+          <ScalarProperty Name="Core" ColumnName="Core" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Product">
+      <EntityTypeMapping TypeName="ASP.NETMVCLaptopModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ProductType" ColumnName="ProductType" />
+          <ScalarProperty Name="ProcessorID" ColumnName="ProcessorID" />
+          <ScalarProperty Name="VideoCardID" ColumnName="VideoCardID" />
+          <ScalarProperty Name="BottomBoradID" ColumnName="BottomBoradID" />
+          <ScalarProperty Name="SystemType" ColumnName="SystemType" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VideoCard">
+      <EntityTypeMapping TypeName="ASP.NETMVCLaptopModel.VideoCard">
+        <MappingFragment StoreEntitySet="VideoCard">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="MaxDigitalResolution" ColumnName="MaxDigitalResolution" />
+          <ScalarProperty Name="MaxVGAResolution" ColumnName="MaxVGAResolution" />
+          <ScalarProperty Name="MemoryBit" ColumnName="MemoryBit" />
+          <ScalarProperty Name="MemoryGBsec" ColumnName="MemoryGBsec" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

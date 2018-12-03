@@ -1,0 +1,56 @@
+﻿@model IEnumerable<LaptopMVC.Models.BottomBoardViewModel>
+@{
+    ViewBag.Title = "ListBottomBoard";
+}
+
+<h2>ListBottomBoard</h2>
+<div class="navbar navbar-static-top ">
+    <div class="container">
+
+        <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+            <span class="icon-bar" id="col1"></span>
+            <span class="icon-bar" id="col1"></span>
+            <span class="icon-bar" id="col1"></span>
+        </button>
+
+        <div class="collapse navbar-collapse navHeaderCollapse">
+            <ul class="nav navbar-nav navbar-left">
+                @if (User.IsInRole("Admin"))
+                {
+                    <li> <a href="@Url.Action("AddBottomBoard", "AllProductsDB")" id="col">Добави Дънна платка</a></li>
+                }
+                <li><a href="@Url.Action("Index", "AllProductsDB")" id="col">Продукт</a></li>
+                <li><a href="@Url.Action("ListProcessor", "AllProductsDB")" id="col">Процесори</a></li>
+                <li><a href="@Url.Action("ListVideoCard", "AllProductsDB")" id="col">Видео карти</a></li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<table class="table table-striped">
+    <tr>
+        <td>Id</td>
+        <td>Име</td>
+        <td>Сокет</td>
+        <td>Поддържа процесор</td>
+        <td>Поддържа RAM памет</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>@item.Id</td>
+        <td><img src="@Url.Content("~/Content/Images/"+item.Image)" style="width:50px; height:50px" /></td>
+        <td>@item.Name</td>
+        <td>@item.Socket</td>
+        <td>@item.ProcessorSupp</td>
+        <td>@item.RAMMemorySupp</td>
+        @if (User.IsInRole("Admin"))
+        {
+            <td><a href="@Url.Action("AddBottomBoard", "AllProductsDB", new { Id = item.Id })" id="col">Промени Дънна платка</a></td>
+            <td><a href="@Url.Action("DeleteMotherboard", "AllProductsDB", new { Id = item.Id, @class = "btn btn-danger btn-block" })" id="col"><i class="glyphicon glyphicon-trash"></i></a></td>
+        }
+        <td><a href="@Url.Action("CartBottomBoard", "AllProductsDB", new { Id = item.Id })" id="col">Поръчай</a></td>
+    </tr>
+    }
+</table>
+

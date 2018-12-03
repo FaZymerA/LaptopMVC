@@ -1,0 +1,153 @@
+﻿@model LaptopMVC.Models.CartViewModel
+
+@{
+    ViewBag.Title = "ListCart";
+}
+
+<h2>ListCart</h2>
+@if (Model.ListProducts.Count > 0)
+{
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PCName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PCVideoCard)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PCProcessor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PC_Orders_Count)
+            </th>
+        </tr>
+        @foreach (var item in Model.ListProducts)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VideoCard.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Processor.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.PC_Orders_Count)
+                </td>
+            </tr>
+        }
+    </table>
+}
+@if (Model.ListVideoCard != null)
+{
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.VideoCardName1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VideoCardMaxDigital)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VideoCardMaxAVG)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VideoCard_Order_Count)
+            </th>
+        </tr>
+        @foreach (var item in Model.ListVideoCard)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxDigitalResolution)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaxVGAResolution)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.VideoCard_Order_Count)
+                </td>
+            </tr>
+        }
+    </table>
+}
+@if (Model.ListProcessor != null)
+{
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProcessorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProcessorGHz)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProcessorCore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Processor_Order_Cout)
+            </th>
+        </tr>
+        @foreach (var item in Model.ListProcessor)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PoworGHz)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Core)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Processor_Order_Cout)
+                </td>
+            </tr>
+        }
+    </table>
+}
+@if (Model.ListMotherboard != null)
+{
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MotherboardName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MotherboardSocet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MotherboardProcessorSupp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Motherboard_Order_Count)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.ListMotherboard)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Socket)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProcessorSupp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Motherboard_Order_Count)
+                </td>
+            </tr>
+        }
+    </table>
+}
+    <a href="@Url.Action("ConfirmedOrder", "AllProductsDB")" id="col">Потвърди</a>

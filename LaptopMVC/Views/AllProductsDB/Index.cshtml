@@ -1,0 +1,93 @@
+﻿@model PagedList.IPagedList<LaptopMVC.Models.ProductsViewModel>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<div class="navbar navbar-static-top ">
+    <div class="container">
+
+        <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+            <span class="icon-bar" id="col1"></span>
+            <span class="icon-bar" id="col1"></span>
+            <span class="icon-bar" id="col1"></span>
+        </button>
+
+        <div class="collapse navbar-collapse navHeaderCollapse">
+            <ul class="nav navbar-nav navbar-left">
+                @if (User.IsInRole("Admin"))
+                {
+                <li><a href="@Url.Action("AddProduct", "AllProductsDB")" id="col">Добави Продукт</a></li>
+                }
+                <li><a href="@Url.Action("ListProcessor", "AllProductsDB")" id="col">Процесори</a></li>
+                <li><a href="@Url.Action("ListVideoCard", "AllProductsDB")" id="col">Видео карти</a></li>
+                <li><a href="@Url.Action("ListBottomBoard", "AllProductsDB")" id="col">Дънни платки</a></li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+@using (Html.BeginForm("Index", "AllProductsDB", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">Go!</button>
+                </span>
+                @Html.TextBox("searchStringUserNameOrEmail", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Search for..." })
+            </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
+    </div><!-- /.row -->
+}
+@using (Html.BeginForm("DeleteProduct", "AllProductsDB", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <table class="table table-striped">
+        <tr>
+            <td>Id</td>
+            <td>Име</td>
+            <td>Тип на продукта</td>
+            <td>Процесор</td>
+            <td>Видео карта</td>
+            <td>Дънна платка</td>
+            <td>Тип на системата</td>
+        </tr>
+        @foreach (var item in Model)
+        {
+        <tr id="row_@item.Id">
+
+            <td>@item.Id</td>
+            <td><a href="@Url.Action("InfoProduct", "AllProductsDB", new { Id = item.Id })" id="col">
+                <img src="@Url.Content("~/Content/Images/"+item.Image)" style="width:50px; height:50px" />
+                </a>
+            </td>
+            <td>@item.Name</td>
+            <td>@item.ProductType</td>
+            <td>@item.ProcessorName</td>
+            <td>@item.VideoCardName</td>
+            <td>@item.BottomBoradName</td>
+            <td>@item.SystemType</td>
+            @if (User.IsInRole("Admin"))
+            {
+                <td><a href="@Url.Action("AddProduct", "AllProductsDB", new { Id = item.Id })" id="col">Промени Продукт</a></td>
+                <td><a href="@Url.Action("DeleteProduct", "AllProductsDB", new { Id = item.Id, @class = "btn btn-danger btn-block" })" id="col"><i class="glyphicon glyphicon-trash"></i></a></td>
+            }
+            <td><a href="@Url.Action("InfoProduct", "AllProductsDB", new { Id = item.Id })" id="col">Информация за продукт</a></td>
+            <td><a href="@Url.Action("CartProducts", "AllProductsDB", new { Id = item.Id })" id="col">Поръчай</a></td>
+        </tr>
+        }
+    </table>
+}
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model,
+        page => Url.Action("Index",
+        new { page,
+            searchStringUserNameOrEmail = ViewBag.searchStringUserNameOrEmail,
+            currentFilter = ViewBag.CurrentFilter }))
+    <hr />

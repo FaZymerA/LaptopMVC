@@ -1,0 +1,79 @@
+﻿@model IEnumerable<LaptopMVC.Models.VideoCardViewModel>
+
+@{
+    ViewBag.Title = "ListVideoCard";
+}
+
+<h2>ListVideoCard</h2>
+
+<div class="navbar navbar-static-top ">
+    <div class="container">
+
+        <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+            <span class="icon-bar" id="col1"></span>
+            <span class="icon-bar" id="col1"></span>
+            <span class="icon-bar" id="col1"></span>
+        </button>
+
+        <div class="collapse navbar-collapse navHeaderCollapse">
+            <ul class="nav navbar-nav navbar-left">
+                @if (User.IsInRole("Admin"))
+                {
+                    <li><a href="@Url.Action("AddVideoCard", "AllProductsDB")" id="col">Добави Процесор</a></li>
+                }
+                <li><a href="@Url.Action("Index", "AllProductsDB")" id="col">Продукти</a></li>
+                <li><a href="@Url.Action("ListProcessor", "AllProductsDB")" id="col">Процесори</a></li>
+                <li><a href="@Url.Action("ListBottomBoard", "AllProductsDB")" id="col">Дънни платки</a></li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxDigitalResolution)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxVGAResolution)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemoryBit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemoryGBsec)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td><img src="@Url.Content("~/Content/Images/"+item.Image)"style="width:50px; height:50px" /></td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxDigitalResolution)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxVGAResolution)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MemoryBit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MemoryGBsec)
+        </td>
+        @if (User.IsInRole("Admin"))
+        {
+            <td><a href="@Url.Action("AddVideoCard", "AllProductsDB",new { Id = item.Id})" id="col">Промени Процесор</a></td>
+            <td><a href="@Url.Action("DeleteVideoCard", "AllProductsDB", new { Id = item.Id, @class = "btn btn-danger btn-block"})" id="col"><i class="glyphicon glyphicon-trash"></i></a></td>
+        }
+        <td><a href="@Url.Action("CartVideoCard", "AllProductsDB", new { Id = item.Id })" id="col">Поръчай</a></td>
+    </tr>
+}
+
+</table>

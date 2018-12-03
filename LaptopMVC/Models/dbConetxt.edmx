@@ -1,0 +1,488 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ASP.NETMVCLaptopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PC_ID" Type="int" />
+          <Property Name="VideoCard_ID" Type="int" />
+          <Property Name="Processor_ID" Type="int" />
+          <Property Name="Motherboard_ID" Type="int" />
+          <Property Name="Orders" Type="int" Nullable="false" />
+          <Property Name="AcceptedOrder" Type="int" Nullable="false" />
+          <Property Name="PC_Orders_Count" Type="int" />
+          <Property Name="VideoCard_Order_Count" Type="int" />
+          <Property Name="Processor_Order_Cout" Type="int" />
+          <Property Name="Motherboard_Order_Count" Type="int" />
+        </EntityType>
+        <EntityType Name="Motherboard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Socket" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProcessorSupp" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RAMMemorySupp" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Processor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PoworGHz" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Core" Type="int" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProcessorID" Type="int" Nullable="false" />
+          <Property Name="VideoCardID" Type="int" Nullable="false" />
+          <Property Name="BottomBoradID" Type="int" Nullable="false" />
+          <Property Name="SystemType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VideoCard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MaxDigitalResolution" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MaxVGAResolution" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MemoryBit" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MemoryGBsec" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Cart_Motherboard">
+          <End Role="Motherboard" Type="Self.Motherboard" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Motherboard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="Motherboard_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_Processor">
+          <End Role="Processor" Type="Self.Processor" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Processor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="Processor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="PC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_VideoCard">
+          <End Role="VideoCard" Type="Self.VideoCard" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VideoCard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="VideoCard_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Motherboard">
+          <End Role="Motherboard" Type="Self.Motherboard" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Motherboard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="BottomBoradID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Processor">
+          <End Role="Processor" Type="Self.Processor" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Processor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProcessorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_VideoCard">
+          <End Role="VideoCard" Type="Self.VideoCard" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VideoCard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="VideoCardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ASPNETMVCLaptopModelStoreContainer">
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Motherboard" EntityType="Self.Motherboard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Processor" EntityType="Self.Processor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VideoCard" EntityType="Self.VideoCard" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Cart_Motherboard" Association="Self.FK_Cart_Motherboard">
+            <End Role="Motherboard" EntitySet="Motherboard" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_Processor" Association="Self.FK_Cart_Processor">
+            <End Role="Processor" EntitySet="Processor" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_Product" Association="Self.FK_Cart_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_VideoCard" Association="Self.FK_Cart_VideoCard">
+            <End Role="VideoCard" EntitySet="VideoCard" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Motherboard" Association="Self.FK_Product_Motherboard">
+            <End Role="Motherboard" EntitySet="Motherboard" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Processor" Association="Self.FK_Product_Processor">
+            <End Role="Processor" EntitySet="Processor" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_VideoCard" Association="Self.FK_Product_VideoCard">
+            <End Role="VideoCard" EntitySet="VideoCard" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ASP.NETMVCLaptopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PC_ID" Type="Int32" />
+          <Property Name="VideoCard_ID" Type="Int32" />
+          <Property Name="Processor_ID" Type="Int32" />
+          <Property Name="Motherboard_ID" Type="Int32" />
+          <Property Name="Orders" Type="Int32" Nullable="false" />
+          <Property Name="AcceptedOrder" Type="Int32" Nullable="false" />
+          <Property Name="PC_Orders_Count" Type="Int32" />
+          <Property Name="VideoCard_Order_Count" Type="Int32" />
+          <Property Name="Processor_Order_Cout" Type="Int32" />
+          <Property Name="Motherboard_Order_Count" Type="Int32" />
+          <NavigationProperty Name="Motherboard" Relationship="Self.FK_Cart_Motherboard" FromRole="Cart" ToRole="Motherboard" />
+          <NavigationProperty Name="Processor" Relationship="Self.FK_Cart_Processor" FromRole="Cart" ToRole="Processor" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Cart_Product" FromRole="Cart" ToRole="Product" />
+          <NavigationProperty Name="VideoCard" Relationship="Self.FK_Cart_VideoCard" FromRole="Cart" ToRole="VideoCard" />
+        </EntityType>
+        <EntityType Name="Motherboard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Socket" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProcessorSupp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RAMMemorySupp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Cart" Relationship="Self.FK_Cart_Motherboard" FromRole="Motherboard" ToRole="Cart" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Motherboard" FromRole="Motherboard" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Processor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PoworGHz" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Core" Type="Int32" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Cart" Relationship="Self.FK_Cart_Processor" FromRole="Processor" ToRole="Cart" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Processor" FromRole="Processor" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProcessorID" Type="Int32" Nullable="false" />
+          <Property Name="VideoCardID" Type="Int32" Nullable="false" />
+          <Property Name="BottomBoradID" Type="Int32" Nullable="false" />
+          <Property Name="SystemType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Cart" Relationship="Self.FK_Cart_Product" FromRole="Product" ToRole="Cart" />
+          <NavigationProperty Name="Motherboard" Relationship="Self.FK_Product_Motherboard" FromRole="Product" ToRole="Motherboard" />
+          <NavigationProperty Name="Processor" Relationship="Self.FK_Product_Processor" FromRole="Product" ToRole="Processor" />
+          <NavigationProperty Name="VideoCard" Relationship="Self.FK_Product_VideoCard" FromRole="Product" ToRole="VideoCard" />
+        </EntityType>
+        <EntityType Name="VideoCard">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaxDigitalResolution" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaxVGAResolution" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MemoryBit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MemoryGBsec" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Cart" Relationship="Self.FK_Cart_VideoCard" FromRole="VideoCard" ToRole="Cart" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_VideoCard" FromRole="VideoCard" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_Cart_Motherboard">
+          <End Role="Motherboard" Type="Self.Motherboard" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Motherboard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="Motherboard_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_Processor">
+          <End Role="Processor" Type="Self.Processor" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Processor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="Processor_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="PC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_VideoCard">
+          <End Role="VideoCard" Type="Self.VideoCard" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VideoCard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="VideoCard_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Motherboard">
+          <End Role="Motherboard" Type="Self.Motherboard" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Motherboard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="BottomBoradID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Processor">
+          <End Role="Processor" Type="Self.Processor" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Processor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProcessorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_VideoCard">
+          <End Role="VideoCard" Type="Self.VideoCard" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VideoCard">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="VideoCardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cart" EntityType="Self.Cart" />
+          <EntitySet Name="Motherboard" EntityType="Self.Motherboard" />
+          <EntitySet Name="Processor" EntityType="Self.Processor" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="VideoCard" EntityType="Self.VideoCard" />
+          <AssociationSet Name="FK_Cart_Motherboard" Association="Self.FK_Cart_Motherboard">
+            <End Role="Motherboard" EntitySet="Motherboard" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_Processor" Association="Self.FK_Cart_Processor">
+            <End Role="Processor" EntitySet="Processor" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_Product" Association="Self.FK_Cart_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_VideoCard" Association="Self.FK_Cart_VideoCard">
+            <End Role="VideoCard" EntitySet="VideoCard" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Motherboard" Association="Self.FK_Product_Motherboard">
+            <End Role="Motherboard" EntitySet="Motherboard" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Processor" Association="Self.FK_Product_Processor">
+            <End Role="Processor" EntitySet="Processor" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_VideoCard" Association="Self.FK_Product_VideoCard">
+            <End Role="VideoCard" EntitySet="VideoCard" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ASPNETMVCLaptopModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Cart">
+            <EntityTypeMapping TypeName="ASP.NETMVCLaptopModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="PC_ID" ColumnName="PC_ID" />
+                <ScalarProperty Name="VideoCard_ID" ColumnName="VideoCard_ID" />
+                <ScalarProperty Name="Processor_ID" ColumnName="Processor_ID" />
+                <ScalarProperty Name="Motherboard_ID" ColumnName="Motherboard_ID" />
+                <ScalarProperty Name="Orders" ColumnName="Orders" />
+                <ScalarProperty Name="AcceptedOrder" ColumnName="AcceptedOrder" />
+                <ScalarProperty Name="PC_Orders_Count" ColumnName="PC_Orders_Count" />
+                <ScalarProperty Name="VideoCard_Order_Count" ColumnName="VideoCard_Order_Count" />
+                <ScalarProperty Name="Processor_Order_Cout" ColumnName="Processor_Order_Cout" />
+                <ScalarProperty Name="Motherboard_Order_Count" ColumnName="Motherboard_Order_Count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Motherboard">
+            <EntityTypeMapping TypeName="ASP.NETMVCLaptopModel.Motherboard">
+              <MappingFragment StoreEntitySet="Motherboard">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Socket" ColumnName="Socket" />
+                <ScalarProperty Name="ProcessorSupp" ColumnName="ProcessorSupp" />
+                <ScalarProperty Name="RAMMemorySupp" ColumnName="RAMMemorySupp" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Processor">
+            <EntityTypeMapping TypeName="ASP.NETMVCLaptopModel.Processor">
+              <MappingFragment StoreEntitySet="Processor">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PoworGHz" ColumnName="PoworGHz" />
+                <ScalarProperty Name="Core" ColumnName="Core" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="ASP.NETMVCLaptopModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProductType" ColumnName="ProductType" />
+                <ScalarProperty Name="ProcessorID" ColumnName="ProcessorID" />
+                <ScalarProperty Name="VideoCardID" ColumnName="VideoCardID" />
+                <ScalarProperty Name="BottomBoradID" ColumnName="BottomBoradID" />
+                <ScalarProperty Name="SystemType" ColumnName="SystemType" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VideoCard">
+            <EntityTypeMapping TypeName="ASP.NETMVCLaptopModel.VideoCard">
+              <MappingFragment StoreEntitySet="VideoCard">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MaxDigitalResolution" ColumnName="MaxDigitalResolution" />
+                <ScalarProperty Name="MaxVGAResolution" ColumnName="MaxVGAResolution" />
+                <ScalarProperty Name="MemoryBit" ColumnName="MemoryBit" />
+                <ScalarProperty Name="MemoryGBsec" ColumnName="MemoryGBsec" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
